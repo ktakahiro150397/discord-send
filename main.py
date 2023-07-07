@@ -4,6 +4,7 @@ import json
 from logging import config,getLogger
 import os
 from dotenv import load_dotenv
+from discord_send.discord_send_author import discord_send_author
 from discord_send.discord_send_image import discord_send_image
 
 from discord_send.discord_send_provider import discord_send_provider
@@ -41,6 +42,7 @@ def main():
     provider = discord_send_provider(name="provider",url="https://qiita.com/")
     image = discord_send_image(url="https://avatars.githubusercontent.com/u/58302085?v=4",height=50,width=50)
     thumbnail = discord_send_image(url="https://avatars.githubusercontent.com/u/58302085?v=4",height=20,width=20)
+    author = discord_send_author(name="author test name",url="https://www.google.com",icon_url="https://avatars.githubusercontent.com/u/58302085?v=4")
     embed_message = discord_send_embed(title="embed_title",
                                        description="embed_description\rThis is loooooooooooooong descriptiooooooooooooooooooooon",
                                        url="https://qiita.com/Qiita/items/c686397e4a0f4f11683d",
@@ -49,7 +51,8 @@ def main():
                                        footer=footer,
                                        provider=provider,
                                        image=image,
-                                       thumbnail=thumbnail)
+                                       thumbnail=thumbnail,
+                                       author=author)
     avatar_username_message = discord_send_message("This is test message.(username/avater)\raaaaaaaaaaaaaa\rbbbbbbbbbbbb",
                                                    username="test_username",
                                                    avatar_url="https://avatars.githubusercontent.com/u/58302085?v=4",
