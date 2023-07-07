@@ -1,7 +1,7 @@
 import logging
 import requests
 
-from discord_send import discord_send_message
+from discord_send.discord_send_message import discord_send_message
 
 class discord_sender():
     '''Send messages to a discord webhook.'''
@@ -16,7 +16,7 @@ class discord_sender():
 
 
     def sendMessage(self,message:discord_send_message) -> None:
-        self._logger.debug(f"sendMessage: {message.message}")
+        self._logger.debug(f"sendMessage: {message}")
 
         response = requests.post(
             url=self.webhookUrl,

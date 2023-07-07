@@ -5,7 +5,8 @@ from logging import config,getLogger
 import os
 from dotenv import load_dotenv
 
-from discord_send import discord_sender,discord_send_message
+from discord_send.discord_sender import discord_sender
+from discord_send.discord_send_message import discord_send_message
 
 # 現在のスクリプトファイルの絶対パスを取得する
 script_dir = os.path.dirname(os.path.abspath(__file__))

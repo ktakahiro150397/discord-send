@@ -9,3 +9,6 @@ class discord_send_message():
         return {
             "content":self.message
         }
+    
+    def __str__(self) -> str:
+        return self.getMessageObject().__str__()

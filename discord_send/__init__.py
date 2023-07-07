@@ -1,2 +1,0 @@
-from discord_send_message import discord_send_message
-from discord_send.discord_send import discord_sender
