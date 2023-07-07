@@ -36,7 +36,8 @@ def main():
     embed_message = discord_send_embed(title="embed_title",
                                        description="embed_description",
                                        url="https://qiita.com/Qiita/items/c686397e4a0f4f11683d",
-                                       timestamp=datetime.now(japan_timezone))
+                                       timestamp=datetime.now(japan_timezone),
+                                       sidebarColorCode="#f27009")
     avatar_username_message = discord_send_message("This is test message.(username/avater)",
                                                    username="test_username",
                                                    avatar_url="https://avatars.githubusercontent.com/u/58302085?v=4",
