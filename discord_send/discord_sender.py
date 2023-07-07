@@ -1,7 +1,12 @@
-import json
+from datetime import datetime
 import logging
 from pathlib import Path
+import pathlib
+import traceback
+from zoneinfo import ZoneInfo
 import requests
+from discord_send.discord_send_author import discord_send_author
+from discord_send.discord_send_embed import discord_send_embed
 
 from discord_send.discord_send_message import discord_send_message
 
@@ -44,3 +49,39 @@ class discord_sender():
 
         self._logger.debug(f"Response status code: {response.status_code}")
         self._logger.debug(f"Response text: {response.text}")
+
+    def sentMessageWithAttachementFiles(self,message:discord_send_message,filePath:list[Path]) -> None:
+        # ファイルパスの内容を読み込み
+        attachments = {}
+        for path in filePath:
+            with open(path.resolve(),"rb") as f:
+                attachments[path.name] = (path.name,f.read())
+        
+        response = requests.post(
+            url=self.webhookUrl,
+            files = attachments,
+            json=message.getMessageObject(),
+        )
+
+        self._logger.debug(f"Response status code: {response.status_code}")
+        self._logger.debug(f"Response text: {response.text}")
+
+    def sendExceptionMessage(self,author:discord_send_author,ex:Exception) -> None:
+        japan_timezone = ZoneInfo(key="Asia/Tokyo")
+
+        if author.icon_url == "":
+            author.icon_url = "attachment://attach_test.jpg" #TODO : ここにローカルに配置しているアイコンを設定？
+
+        embed = discord_send_embed(title=ex.__class__.__name__ + "が発生しました :face_with_open_eyes_and_hand_over_mouth:",
+                                    description="以下のエラーが発生しました。"+ "\r\r" + str(ex) + "\r" + traceback.format_exc(),
+                                    sidebarColorCode="#ff0000",
+                                    author=author,
+                                    timestamp=datetime.now(tz=japan_timezone)
+                                    )
+        
+        iconFilePath = [pathlib.Path("attach_test.jpg")]
+
+        message = discord_send_message(message="",
+                                        username="例外通知ちゃん",
+                                        embed=embed)
+        self.sentMessageWithAttachementFiles(message,iconFilePath)

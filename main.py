@@ -4,6 +4,7 @@ import json
 from logging import config,getLogger
 import os
 import pathlib
+import traceback
 from dotenv import load_dotenv
 
 import discord_send
@@ -73,8 +74,28 @@ def main():
                                                    username="Webhookユーザー",
                                                    avatar_url="https://avatars.githubusercontent.com/u/58302085?v=4",
                                                    embed=embed_message)
-    sender.sendMessage(avatar_username_message)
+    # sender.sendMessage(avatar_username_message)
     # sender.sendAttachFiles(filePath=attachTestFiles)
+
+    try:
+        raise Exception("テストエラー")
+    except Exception as ex:
+        # エラー内容をDiscordに送信
+        author = discord_send.discord_send_author(name="weather-forecast.py エラー通知",
+                                                  icon_url="")
+        embed = discord_send.discord_send_embed(title=ex.__class__.__name__ + "が発生しました。",
+                                                description="以下のエラーが発生しました。"+ "\r\r" + str(ex) + "\r" + traceback.format_exc(),
+                                                sidebarColorCode="#ff0000",
+                                                author=author,
+                                                timestamp=datetime.now(japan_timezone)
+                                                )
+        message = discord_send.discord_send_message(message="",
+                                          username="weather-forecast.py エラー通知",
+                                          embed=embed)
+        
+        sender = discord_send.discord_sender(webhookUrl)
+        # sender.sendMessage(message)
+        sender.sendExceptionMessage(author=author,ex=ex)
 
 if __name__ == '__main__':
     main()
