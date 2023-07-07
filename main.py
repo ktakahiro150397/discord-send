@@ -5,6 +5,7 @@ from logging import config,getLogger
 import os
 from dotenv import load_dotenv
 
+from discord_send.discord_send_provider import discord_send_provider
 from discord_send.discord_send_footer import discord_send_footer
 from discord_send.discord_sender import discord_sender
 from discord_send.discord_send_message import discord_send_message
@@ -36,12 +37,14 @@ def main():
     japan_timezone = timezone(timedelta(hours=9))
 
     footer = discord_send_footer(text="Sent by discord_send",icon_url="https://avatars.githubusercontent.com/u/58302085?v=4")
+    provider = discord_send_provider(name="provider",url="https://qiita.com/")
     embed_message = discord_send_embed(title="embed_title",
                                        description="embed_description",
                                        url="https://qiita.com/Qiita/items/c686397e4a0f4f11683d",
                                        timestamp=datetime.now(japan_timezone),
                                        sidebarColorCode="#f27009",
-                                       footer=footer)
+                                       footer=footer,
+                                       provider=provider)
     avatar_username_message = discord_send_message("This is test message.(username/avater)",
                                                    username="test_username",
                                                    avatar_url="https://avatars.githubusercontent.com/u/58302085?v=4",

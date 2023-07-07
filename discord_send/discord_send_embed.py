@@ -2,6 +2,7 @@ from datetime import datetime
 import logging
 
 from discord_send.discord_send_footer import discord_send_footer
+from discord_send.discord_send_provider import discord_send_provider
 
 
 class discord_send_embed():
@@ -13,7 +14,8 @@ class discord_send_embed():
                  url:str="",
                  timestamp:datetime=None,
                  sidebarColorCode:str="",
-                 footer:discord_send_footer=None
+                 footer:discord_send_footer=None,
+                 provider:discord_send_provider=None,
                  ) -> None:
         self.title = title
         self.description = description
@@ -21,6 +23,7 @@ class discord_send_embed():
         self.timestamp = timestamp
         self.sidebarColorCode = sidebarColorCode
         self.footer = footer
+        self.provider = provider
 
         self._logger = logging.getLogger(__name__)
         self._logger.addHandler(logging.NullHandler())
@@ -37,6 +40,7 @@ class discord_send_embed():
             "timestamp":self.timestamp.isoformat(),
             "color":self.getColorCode(),
             "footer":self.footer.getMessageObject(),
+            "provider":self.provider.getMessageObject()
         }
 
         for key in list(obj.keys()):
