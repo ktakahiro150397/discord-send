@@ -23,10 +23,16 @@ load_dotenv()
 webhookUrl = os.getenv("DISCORD_SEND_URL")
 
 def main():
-    message = discord_send_message("This is test message")
     sender = discord_sender(webhookUrl)
 
-    sender.sendMessage(message)
+    logger.debug("sendMessage")
+    test_message = discord_send_message("This is test message")
+    sender.sendMessage(test_message)
+
+    blank_message = discord_send_message("")
+    sender.sendMessage(blank_message)
+
+
 
 
 if __name__ == '__main__':

@@ -14,9 +14,6 @@ class discord_send_message():
             "content":self.message
         }
 
-
-
-
 class discord_sender():
     '''Send messages to a discord webhook.'''
 
@@ -30,6 +27,8 @@ class discord_sender():
 
 
     def sendMessage(self,message:discord_send_message) -> None:
+        self._logger.debug(f"sendMessage: {message.message}")
+
         response = requests.post(
             url=self.webhookUrl,
             json=message.getMessageObject(),

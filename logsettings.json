@@ -33,6 +33,21 @@
                 "rotateHandler"
             ],
             "propagate":false
+        },
+        "discord_send":{
+            "level":"DEBUG",
+            "handlers":[
+                "consoleHandler",
+                "rotateHandler"
+            ],
+            "propagate":false
         }
+    },
+    "root":{
+        "level":"CRITICAL",
+        "handlers":[
+            "consoleHandler",
+            "rotateHandler"
+        ]
     }
 }
