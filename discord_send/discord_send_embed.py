@@ -2,6 +2,7 @@ from datetime import datetime
 import logging
 
 from discord_send.discord_send_author import discord_send_author
+from discord_send.discord_send_fields import discord_send_fields
 from discord_send.discord_send_footer import discord_send_footer
 from discord_send.discord_send_image import discord_send_image
 from discord_send.discord_send_provider import discord_send_provider
@@ -20,6 +21,7 @@ class discord_send_embed():
                  image:discord_send_image=None,
                  thumbnail:discord_send_image=None,
                  author:discord_send_author=None,
+                 fields:discord_send_fields=None,
                  ) -> None:
         self.title = title
         self.description = description
@@ -31,6 +33,7 @@ class discord_send_embed():
         self.image = image
         self.thumbnail = thumbnail
         self.author = author
+        self.fields = fields
 
         self._logger = logging.getLogger(__name__)
         self._logger.addHandler(logging.NullHandler())
@@ -51,6 +54,7 @@ class discord_send_embed():
             "image":("" if self.image == None else self.image.getMessageObject()),
             "thumbnail":("" if self.thumbnail == None else self.thumbnail.getMessageObject()),
             "author":("" if self.author == None else self.author.getMessageObject()),
+            "fields":("" if self.fields == None else self.fields.getMessageObject()),
         }
 
         for key in list(obj.keys()):
