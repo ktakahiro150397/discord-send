@@ -31,11 +31,10 @@ def main():
     test_message = discord_send_message("This is test message")
     sender.sendMessage(test_message)
 
-    blank_message = discord_send_message("")
-    sender.sendMessage(blank_message)
-
-
-
+    avatar_username_message = discord_send_message("This is test message.(username/avater)",
+                                                   username="test_username",
+                                                   avatar_url="https://avatars.githubusercontent.com/u/58302085?v=4")
+    sender.sendMessage(avatar_username_message)
 
 if __name__ == '__main__':
     main()
