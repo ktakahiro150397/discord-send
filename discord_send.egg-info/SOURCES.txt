@@ -1,0 +1,14 @@
+setup.py
+discord_send/__init__.py
+discord_send/discord_send_author.py
+discord_send/discord_send_embed.py
+discord_send/discord_send_fields.py
+discord_send/discord_send_footer.py
+discord_send/discord_send_image.py
+discord_send/discord_send_message.py
+discord_send/discord_send_provider.py
+discord_send/discord_sender.py
+discord_send.egg-info/PKG-INFO
+discord_send.egg-info/SOURCES.txt
+discord_send.egg-info/dependency_links.txt
+discord_send.egg-info/top_level.txt
