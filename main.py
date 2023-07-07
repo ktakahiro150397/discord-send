@@ -5,15 +5,8 @@ from logging import config,getLogger
 import os
 import pathlib
 from dotenv import load_dotenv
-from discord_send.discord_send_author import discord_send_author
-from discord_send.discord_send_fields import discord_send_fields
-from discord_send.discord_send_image import discord_send_image
 
-from discord_send.discord_send_provider import discord_send_provider
-from discord_send.discord_send_footer import discord_send_footer
-from discord_send.discord_sender import discord_sender
-from discord_send.discord_send_message import discord_send_message
-from discord_send.discord_send_embed import discord_send_embed
+import discord_send
 
 # 現在のスクリプトファイルの絶対パスを取得する
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -32,7 +25,7 @@ load_dotenv()
 webhookUrl = os.getenv("DISCORD_SEND_URL")
 
 def main():
-    sender = discord_sender(webhookUrl)
+    sender = discord_send.discord_sender(webhookUrl)
 
     # logger.debug("sendMessage")
     # test_message = discord_send_message("This is test message")
@@ -40,12 +33,12 @@ def main():
 
     japan_timezone = timezone(timedelta(hours=9))
 
-    footer = discord_send_footer(text="Sent by discord_send",icon_url="https://avatars.githubusercontent.com/u/58302085?v=4")
-    provider = discord_send_provider(name="provider",url="https://qiita.com/")
-    image = discord_send_image(url="https://avatars.githubusercontent.com/u/58302085?v=4",height=50,width=50)
-    thumbnail = discord_send_image(url="https://avatars.githubusercontent.com/u/58302085?v=4",height=20,width=20)
-    author = discord_send_author(name="@discord_send",url="https://www.google.com",icon_url="https://avatars.githubusercontent.com/u/58302085?v=4")
-    fields = discord_send_fields()
+    footer = discord_send.discord_send_footer(text="Sent by discord_send",icon_url="https://avatars.githubusercontent.com/u/58302085?v=4")
+    provider = discord_send.discord_send_provider(name="provider",url="https://qiita.com/")
+    image = discord_send.discord_send_image(url="https://avatars.githubusercontent.com/u/58302085?v=4",height=50,width=50)
+    thumbnail = discord_send.discord_send_image(url="https://avatars.githubusercontent.com/u/58302085?v=4",height=20,width=20)
+    author = discord_send.discord_send_author(name="@discord_send",url="https://www.google.com",icon_url="https://avatars.githubusercontent.com/u/58302085?v=4")
+    fields = discord_send.discord_send_fields()
     fields.pushFieldElement("field1", "いい感じに並べて表示",True)
     fields.pushFieldElement("field2", "これは横並び",True)
     fields.pushFieldElement("field3", "これも横並び",True)
@@ -65,7 +58,7 @@ def main():
     attachTestFiles = [jpgTestPath,zipTestPath]
 
 
-    embed_message = discord_send_embed(title="タイトル",
+    embed_message = discord_send.discord_send_embed(title="タイトル",
                                        description="embed description\rembed使うとよく見るアレみたいなオシャレ表示ができる",
                                        url="https://qiita.com/Qiita/items/c686397e4a0f4f11683d",
                                        timestamp=datetime.now(japan_timezone),
@@ -76,7 +69,7 @@ def main():
                                        thumbnail=thumbnail,
                                        author=author,
                                        fields=fields)
-    avatar_username_message = discord_send_message("Webhook テストメッセージ送信確認",
+    avatar_username_message = discord_send.discord_send_message("Webhook テストメッセージ送信確認",
                                                    username="Webhookユーザー",
                                                    avatar_url="https://avatars.githubusercontent.com/u/58302085?v=4",
                                                    embed=embed_message)
