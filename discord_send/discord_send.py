@@ -1,18 +1,7 @@
 import logging
 import requests
 
-
-class discord_send_message():
-    '''Represents a message to be sent to a discord webhook.'''
-
-    def __init__(self,message:str) -> None:
-        self.message = message
-
-    def getMessageObject(self) -> dict:
-        '''Returns a dict object representing the message.'''
-        return {
-            "content":self.message
-        }
+from discord_send import discord_send_message
 
 class discord_sender():
     '''Send messages to a discord webhook.'''
@@ -36,14 +25,3 @@ class discord_sender():
 
         self._logger.debug(f"Response status code: {response.status_code}")
         self._logger.debug(f"Response text: {response.text}")
-
-        
-
-
-
-
-
-
-
-
-    
