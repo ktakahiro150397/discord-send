@@ -1,6 +1,8 @@
 from datetime import datetime
 import logging
 
+from discord_send.discord_send_footer import discord_send_footer
+
 
 class discord_send_embed():
     '''Represents a embed message to be sent to a discord webhook.'''
@@ -10,13 +12,15 @@ class discord_send_embed():
                  description:str="",
                  url:str="",
                  timestamp:datetime=None,
-                 sidebarColorCode:str=""
+                 sidebarColorCode:str="",
+                 footer:discord_send_footer=None
                  ) -> None:
         self.title = title
         self.description = description
         self.url = url
         self.timestamp = timestamp
         self.sidebarColorCode = sidebarColorCode
+        self.footer = footer
 
         self._logger = logging.getLogger(__name__)
         self._logger.addHandler(logging.NullHandler())
@@ -31,7 +35,8 @@ class discord_send_embed():
             "description":self.description,
             "url":self.url,
             "timestamp":self.timestamp.isoformat(),
-            "color":self.getColorCode()
+            "color":self.getColorCode(),
+            "footer":self.footer.getMessageObject(),
         }
 
         for key in list(obj.keys()):
