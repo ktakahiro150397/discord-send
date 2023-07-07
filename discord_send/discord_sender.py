@@ -1,4 +1,6 @@
+import json
 import logging
+from pathlib import Path
 import requests
 
 from discord_send.discord_send_message import discord_send_message
@@ -21,6 +23,23 @@ class discord_sender():
         response = requests.post(
             url=self.webhookUrl,
             json=message.getMessageObject(),
+        )
+
+        self._logger.debug(f"Response status code: {response.status_code}")
+        self._logger.debug(f"Response text: {response.text}")
+
+    def sendAttachFiles(self,filePath:list[Path]) -> None:
+        self._logger.debug(f"sendAttachFiles: {filePath}")
+
+        # ファイルパスの内容を読み込み
+        file_payload = {}
+        for path in filePath:
+            with open(path.resolve(),"rb") as f:
+                file_payload[path.name] = (path.name,f.read())
+
+        response = requests.post(
+            url=self.webhookUrl,
+            files = file_payload
         )
 
         self._logger.debug(f"Response status code: {response.status_code}")

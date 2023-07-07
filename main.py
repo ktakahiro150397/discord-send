@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, timezone
 import json
 from logging import config,getLogger
 import os
+import pathlib
 from dotenv import load_dotenv
 from discord_send.discord_send_author import discord_send_author
 from discord_send.discord_send_fields import discord_send_fields
@@ -56,6 +57,13 @@ def main():
     fields.pushFieldElement("field9", "value9",True)
     fields.pushFieldElement("field10", "value10",False)
 
+
+    jpgTestPath = pathlib.Path("attach_test.jpg")
+    zipTestPath = pathlib.Path("Cassava2_5_1_64.zip")
+
+    attachTestFiles = [jpgTestPath,zipTestPath]
+
+
     embed_message = discord_send_embed(title="embed_title",
                                        description="embed_description\rThis is loooooooooooooong descriptiooooooooooooooooooooon",
                                        url="https://qiita.com/Qiita/items/c686397e4a0f4f11683d",
@@ -71,7 +79,9 @@ def main():
                                                    username="test_username",
                                                    avatar_url="https://avatars.githubusercontent.com/u/58302085?v=4",
                                                    embed=embed_message)
-    sender.sendMessage(avatar_username_message)
+    # sender.sendMessage(avatar_username_message)
+    # sender.sendMessageWithAttachFile(avatar_username_message,file_bin=file_jpg)
+    sender.sendAttachFiles(filePath=attachTestFiles)
 
 if __name__ == '__main__':
     main()
