@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 import logging
 from pathlib import Path
 import pathlib
@@ -50,22 +51,6 @@ class discord_sender():
         self._logger.debug(f"Response status code: {response.status_code}")
         self._logger.debug(f"Response text: {response.text}")
 
-    def sentMessageWithAttachementFiles(self,message:discord_send_message,filePath:list[Path]) -> None:
-        # ファイルパスの内容を読み込み
-        attachments = {}
-        for path in filePath:
-            with open(path.resolve(),"rb") as f:
-                attachments[path.name] = (path.name,f.read())
-        
-        response = requests.post(
-            url=self.webhookUrl,
-            files = attachments,
-            json=message.getMessageObject(),
-        )
-
-        self._logger.debug(f"Response status code: {response.status_code}")
-        self._logger.debug(f"Response text: {response.text}")
-
     def sendExceptionMessage(self,author:discord_send_author,ex:Exception) -> None:
         japan_timezone = ZoneInfo(key="Asia/Tokyo")
 
@@ -84,4 +69,4 @@ class discord_sender():
         message = discord_send_message(message="",
                                         username="例外通知ちゃん",
                                         embed=embed)
-        self.sentMessageWithAttachementFiles(message,iconFilePath)
+        self.sendMessage(message)

@@ -83,16 +83,6 @@ def main():
         # エラー内容をDiscordに送信
         author = discord_send.discord_send_author(name="weather-forecast.py エラー通知",
                                                   icon_url="")
-        embed = discord_send.discord_send_embed(title=ex.__class__.__name__ + "が発生しました。",
-                                                description="以下のエラーが発生しました。"+ "\r\r" + str(ex) + "\r" + traceback.format_exc(),
-                                                sidebarColorCode="#ff0000",
-                                                author=author,
-                                                timestamp=datetime.now(japan_timezone)
-                                                )
-        message = discord_send.discord_send_message(message="",
-                                          username="weather-forecast.py エラー通知",
-                                          embed=embed)
-        
         sender = discord_send.discord_sender(webhookUrl)
         # sender.sendMessage(message)
         sender.sendExceptionMessage(author=author,ex=ex)
