@@ -55,7 +55,7 @@ class discord_sender():
         japan_timezone = ZoneInfo(key="Asia/Tokyo")
 
         if author.icon_url == "":
-            author.icon_url = "attachment://attach_test.jpg" #TODO : ここにローカルに配置しているアイコンを設定？
+            author.icon_url = "https://raw.githubusercontent.com/ktakahiro150397/discord-send/main/icons/warning.png"
 
         embed = discord_send_embed(title=ex.__class__.__name__ + "が発生しました :face_with_open_eyes_and_hand_over_mouth:",
                                     description="以下のエラーが発生しました。"+ "\r\r" + str(ex) + "\r" + traceback.format_exc(),
