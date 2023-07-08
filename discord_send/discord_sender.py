@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 import requests
 from discord_send.discord_send_author import discord_send_author
 from discord_send.discord_send_embed import discord_send_embed
+from discord_send.discord_send_footer import discord_send_footer
 
 from discord_send.discord_send_message import discord_send_message
 
@@ -57,10 +58,13 @@ class discord_sender():
         if author.icon_url == "":
             author.icon_url = "https://raw.githubusercontent.com/ktakahiro150397/discord-send/main/icons/warning.png"
 
+        footer = discord_send_footer(text="from エラー通知ライブラリ discord_send")
+
         embed = discord_send_embed(title=ex.__class__.__name__ + "が発生しました :face_with_open_eyes_and_hand_over_mouth:",
                                     description="以下のエラーが発生しました。"+ "\r\r" + str(ex) + "\r" + traceback.format_exc(),
                                     sidebarColorCode="#ff0000",
                                     author=author,
+                                    footer=footer,
                                     timestamp=datetime.now(tz=japan_timezone)
                                     )
         

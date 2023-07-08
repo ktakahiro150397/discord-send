@@ -81,8 +81,7 @@ def main():
         raise Exception("テストエラー")
     except Exception as ex:
         # エラー内容をDiscordに送信
-        author = discord_send.discord_send_author(name="weather-forecast.py エラー通知",
-                                                  icon_url="")
+        author = discord_send.discord_send_author(name="weather-forecast.py エラー通知")
         sender = discord_send.discord_sender(webhookUrl)
         # sender.sendMessage(message)
         sender.sendExceptionMessage(author=author,ex=ex)
