@@ -18,7 +18,7 @@ class discord_send_message():
             "username":self.username,
             "content":self.message,
             "avatar_url":self.avatar_url,
-            "embeds":[self.embed.getMessageObject()]
+            "embeds":"" if self.embed is None else [self.embed.getMessageObject()]
         }
 
         for key in list(obj.keys()):
