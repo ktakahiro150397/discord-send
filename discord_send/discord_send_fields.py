@@ -1,3 +1,6 @@
+import typing
+
+
 class discord_send_field_element():
     def __init__(self,name:str,value:str="",inline:bool=False) -> None:
         self.name = name
@@ -24,12 +27,12 @@ class discord_send_field_element():
 
 class discord_send_fields():
     def __init__(self) -> None:
-        self.fields:list[discord_send_field_element] = []
+        self.fields:typing.List[discord_send_field_element] = []
 
     def pushFieldElement(self,name:str,value:str="",inline:bool=False) -> None:
         self.fields.append(discord_send_field_element(name,value,inline))
     
-    def getMessageObject(self) -> list[dict]:
+    def getMessageObject(self) -> typing.List[dict]:
         '''Returns a dict object representing the message.'''
         array = []
         for field in self.fields:

@@ -4,6 +4,7 @@ import logging
 from pathlib import Path
 import pathlib
 import traceback
+import typing
 from zoneinfo import ZoneInfo
 import requests
 from discord_send.discord_send_author import discord_send_author
@@ -35,7 +36,7 @@ class discord_sender():
         self._logger.debug(f"Response status code: {response.status_code}")
         self._logger.debug(f"Response text: {response.text}")
 
-    def sendAttachFiles(self,filePath:list[Path]) -> None:
+    def sendAttachFiles(self,filePath:typing.List[Path]) -> None:
         self._logger.debug(f"sendAttachFiles: {filePath}")
 
         # ファイルパスの内容を読み込み
