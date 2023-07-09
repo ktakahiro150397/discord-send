@@ -1,11 +1,10 @@
-from datetime import datetime
+from datetime import datetime,timezone,timedelta
 import json
 import logging
 from pathlib import Path
 import pathlib
 import traceback
 import typing
-from zoneinfo import ZoneInfo
 import requests
 from discord_send.discord_send_author import discord_send_author
 from discord_send.discord_send_embed import discord_send_embed
@@ -54,7 +53,7 @@ class discord_sender():
         self._logger.debug(f"Response text: {response.text}")
 
     def sendExceptionMessage(self,author:discord_send_author,ex:Exception) -> None:
-        japan_timezone = ZoneInfo(key="Asia/Tokyo")
+        japan_timezone = timezone(timedelta(hours=9))
 
         if author.icon_url == "":
             author.icon_url = "https://raw.githubusercontent.com/ktakahiro150397/discord-send/main/icons/warning.png"
